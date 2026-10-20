@@ -35,6 +35,7 @@ export default defineConfig({
     cspMeta(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: false, // נרשם ב-src/lib/pwa.ts, עם בדיקת עדכון בכל פתיחה
       includeAssets: ['favicon.ico', 'favicon.svg', 'apple-touch-icon-180x180.png', 'logo-mark.svg'],
       manifest: {
         name: 'רדאר מנויים',
@@ -57,6 +58,9 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: `${base}index.html`,
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
         runtimeCaching: [
           {
