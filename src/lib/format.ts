@@ -59,3 +59,8 @@ export function fmtMoney(cost: number | string, currency: Currency): string {
 }
 
 export const cycleText = { monthly: 'חודשי', yearly: 'שנתי' } as const
+
+// תאריך או סכום בתוך משפט בעברית: בידוד כיווני (כמו <bdi dir="ltr">) כדי שהספרות לא יתהפכו
+export const ltrText = (s: string) => `\u2066${s}\u2069`
+// שם מנוי בתוך משפט: כיוון לפי השם עצמו, כדי ש-"Disney+" לא יוצג "+Disney"
+export const nameText = (s: string) => `\u2068${s}\u2069`

@@ -6,6 +6,7 @@ import { restoreSpaRedirect } from './lib/spaRedirect'
 import { setupPwa } from './lib/pwa'
 import App from './App'
 import { AuthProvider } from './app/auth'
+import { ToastProvider } from './components/Toast'
 import './styles/globals.css'
 
 restoreSpaRedirect()
@@ -18,7 +19,9 @@ createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AuthProvider>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>

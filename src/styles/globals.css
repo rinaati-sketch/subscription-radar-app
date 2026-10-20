@@ -35,3 +35,15 @@
   body { font-size: var(--font-size-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   :focus-visible { outline: none; box-shadow: 0 0 0 4px var(--color-focus-ring); }
 }
+
+/* מסכי המנויים (שלב 11) */
+@keyframes toast-in { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes sheet-in { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes dialog-in { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--color-border-subtle) 25%, var(--color-bg-field) 50%, var(--color-border-subtle) 75%);
+  background-size: 200% 100%;
+  animation: shimmer var(--motion-duration-shimmer) var(--motion-easing-linear) infinite;
+  border-radius: 10px;
+}
