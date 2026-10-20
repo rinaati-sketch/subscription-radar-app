@@ -34,6 +34,9 @@ create index if not exists subscriptions_user_renewal
   on public.subscriptions (user_id, next_renewal_date);
 
 -- ---------- אבטחה: כל משתמש רואה רק את שלו ----------
+-- הרשאות מפורשות: רק משתמש מחובר ניגש לטבלה, אורח (anon) לא ניגש בכלל
+revoke all on public.subscriptions from anon;
+grant select, insert, update, delete on public.subscriptions to authenticated;
 alter table public.subscriptions enable row level security;
 
 create policy "own rows - select" on public.subscriptions for select using (user_id = auth.uid());
