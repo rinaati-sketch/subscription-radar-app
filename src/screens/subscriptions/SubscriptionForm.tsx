@@ -9,7 +9,7 @@ import {
   createSubscription, DuplicateError, restoreSubscription, updateSubscription,
   type Subscription, type SubscriptionInput,
 } from '../../lib/subscriptions'
-import { alertDay, daysBetween, fmtDate, ltrText, nameText, parseDate, todayIso } from '../../lib/format'
+import { alertDay, daysBetween, fmtDate, ltrText, maskDate, nameText, parseDate, todayIso } from '../../lib/format'
 import { t } from '../../content/he'
 import { Field } from '../../components/Field'
 import { Button } from '../../components/Button'
@@ -184,7 +184,18 @@ function FormBody({ mode, initial, sub }: { mode: Mode; initial: Values; sub?: S
           {errors.billing_cycle && <ErrorMsg>{errors.billing_cycle.message}</ErrorMsg>}
         </fieldset>
 
-        <Field label={t.form.date} placeholder={t.form.datePlaceholder} inputMode="numeric" ltr autoComplete="off" error={errors.date?.message} {...register('date')} />
+        <Field
+          label={t.form.date}
+          placeholder={t.form.datePlaceholder}
+          inputMode="numeric"
+          maxLength={10}
+          ltr
+          autoComplete="off"
+          error={errors.date?.message}
+          {...register('date', {
+            onChange: e => { const m = maskDate(e.target.value); if (m !== e.target.value) setValue('date', m) },
+          })}
+        />
 
         <Field
           label={t.form.url}

@@ -64,3 +64,14 @@ export const cycleText = { monthly: 'חודשי', yearly: 'שנתי' } as const
 export const ltrText = (s: string) => `\u2066${s}\u2069`
 // שם מנוי בתוך משפט: כיוון לפי השם עצמו, כדי ש-"Disney+" לא יוצג "+Disney"
 export const nameText = (s: string) => `\u2068${s}\u2069`
+
+// הקלדת תאריך במקלדת מספרים (אין בה "/"): מוסיפים "/" לבד - 15112026 -> 15/11/2026.
+// מה שכבר כתוב עם מפרידים (הדבקה, או מקלדת עם "/") נשאר כמו שהוא
+export function maskDate(raw: string): string {
+  const v = raw.replace(/[.-]/g, '/')
+  if (/^\d{1,2}(\/\d{0,2}(\/\d{0,4})?)?$/.test(v)) return v
+  const d = raw.replace(/\D/g, '').slice(0, 8)
+  if (d.length <= 2) return d
+  if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`
+  return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`
+}
