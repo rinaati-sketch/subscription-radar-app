@@ -1,0 +1,96 @@
+:root{
+  /* רדאר מנויים - נוצר מ-tokens.json על ידי build_tokens.py. לא לערוך ידנית. */
+  --primitive-white: oklch(1 0 0); /* #ffffff */
+  --primitive-cream: oklch(0.982 0.018 75); /* #fff8ec */
+  --primitive-paper: oklch(0.99 0.008 90); /* #fefcf6 */
+  --primitive-ink: oklch(0.19 0.03 290); /* #141120 */
+  --primitive-slate: oklch(0.42 0.04 290); /* #4c4a62 */
+  --primitive-purple: oklch(0.54 0.25 290); /* #763bf1 */
+  --primitive-lime: oklch(0.9 0.21 123); /* #c5f32d */
+  --primitive-lime-soft: oklch(0.96 0.08 123); /* #e7fbc0 */
+  --primitive-pink: oklch(0.68 0.23 355); /* #fc459f */
+  --primitive-pink-soft: oklch(0.95 0.04 355); /* #ffe4f0 */
+  --primitive-amber: oklch(0.86 0.15 80); /* #ffc54d */
+  --primitive-red: oklch(0.55 0.22 27); /* #d40c1a */
+  --primitive-red-soft: oklch(0.96 0.03 27); /* #fff0ee */
+  --primitive-orange: oklch(0.55 0.17 50); /* #b94b00 */
+  --primitive-gray: oklch(0.93 0.01 290); /* #e7e7ee */
+  --color-bg-page: var(--primitive-cream);
+  --color-bg-surface: var(--primitive-white);
+  --color-bg-field: var(--primitive-paper);
+  --color-bg-highlight: var(--primitive-lime-soft);
+  --color-text-primary: var(--primitive-ink);
+  --color-text-muted: var(--primitive-slate);
+  --color-text-on-primary: var(--primitive-white);
+  --color-text-on-dark: var(--primitive-white);
+  --color-text-link: var(--primitive-purple);
+  --color-text-danger: var(--primitive-red);
+  --color-text-trial: var(--primitive-orange);
+  --color-border-default: var(--primitive-ink);
+  --color-border-subtle: var(--primitive-gray);
+  --color-border-danger: var(--primitive-red);
+  --color-action-primary: var(--primitive-purple);
+  --color-action-secondary: var(--primitive-white);
+  --color-action-danger: var(--primitive-red);
+  --color-focus-ring: var(--primitive-lime);
+  --color-shadow-default: var(--primitive-ink);
+  --color-feedback-error-bg: var(--primitive-red-soft);
+  --color-feedback-info-bg: var(--primitive-pink-soft);
+  --color-status-tracking-bg: var(--primitive-lime);
+  --color-status-tracking-text: var(--primitive-ink);
+  --color-status-pending-bg: var(--primitive-pink);
+  --color-status-pending-text: var(--primitive-ink);
+  --color-status-renewed-bg: var(--primitive-amber);
+  --color-status-renewed-text: var(--primitive-ink);
+  --color-status-marked-bg: var(--primitive-ink);
+  --color-status-marked-text: var(--primitive-white);
+  --color-status-cancelled-bg: var(--primitive-gray);
+  --color-status-cancelled-text: var(--primitive-slate);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-field: 14px;
+  --radius-button: 16px;
+  --radius-card: 22px;
+  --radius-pill: 999px;
+  --border-default: 3px;
+  --border-small: 2.5px;
+  --border-divider: 2px;
+  --shadow-sm: 3px 3px 0 var(--color-shadow-default);
+  --shadow-md: 5px 5px 0 var(--color-shadow-default);
+  --shadow-lg: 8px 8px 0 var(--color-shadow-default);
+  --font-family: "Rubik", system-ui, sans-serif;
+  --font-size-title: 32px;
+  --font-size-section: 22px;
+  --font-size-card: 18px;
+  --font-size-body: 17px;
+  --font-size-small: 15px;
+  --font-size-label: 14px;
+  --font-size-caption: 13px;
+  --motion-duration-instant: 80ms;
+  --motion-duration-fast: 120ms;
+  --motion-duration-fade: 160ms;
+  --motion-duration-base: 200ms;
+  --motion-duration-moderate: 280ms;
+  --motion-duration-slow: 400ms;
+  --motion-duration-shimmer: 1400ms;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-out: cubic-bezier(0, 0, 0.2, 1);
+  --motion-easing-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-easing-spring: cubic-bezier(0.3, 1.25, 0.5, 1);
+  --motion-easing-linear: linear;
+  --layout-page-padding: 16px;
+  --layout-title-size: 26px;
+  --layout-gutter: 16px;
+  --layout-bottom-nav: 64px;
+  --layout-columns: 4;
+  --layout-content-max: 1100px;
+}
+@media (min-width:768px){:root{--layout-page-padding:32px;--layout-title-size:30px;--layout-gutter:24px;--layout-bottom-nav:0px;--layout-columns:8}}
+@media (min-width:1024px){:root{--layout-page-padding:48px;--layout-title-size:32px;--layout-gutter:24px;--layout-bottom-nav:0px;--layout-columns:12}}
+@media (prefers-reduced-motion:reduce){:root{--motion-duration-instant:0ms;--motion-duration-fast:0ms;--motion-duration-fade:150ms;--motion-duration-base:0ms;--motion-duration-moderate:0ms;--motion-duration-slow:0ms;--motion-duration-shimmer:0ms;}}

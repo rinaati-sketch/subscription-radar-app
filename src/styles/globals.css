@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* מחברים את הטוקנים (שלב 5) לשמות של Tailwind */
+@theme inline {
+  --color-page: var(--color-bg-page);
+  --color-surface: var(--color-bg-surface);
+  --color-field: var(--color-bg-field);
+  --color-highlight: var(--color-bg-highlight);
+  --color-ink: var(--color-text-primary);
+  --color-muted: var(--color-text-muted);
+  --color-primary: var(--color-action-primary);
+  --color-danger: var(--color-action-danger);
+  --color-ring: var(--color-focus-ring);
+  --color-subtle: var(--color-border-subtle);
+  --font-sans: var(--font-family);
+  --radius-field: var(--radius-field);
+  --radius-button: var(--radius-button);
+  --radius-card: var(--radius-card);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+}
+
+@layer base {
+  html, body { background: var(--color-bg-page); color: var(--color-text-primary); font-family: var(--font-family); }
+  body { font-size: var(--font-size-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  :focus-visible { outline: none; box-shadow: 0 0 0 4px var(--color-focus-ring); }
+}
