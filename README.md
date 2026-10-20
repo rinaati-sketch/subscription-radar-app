@@ -4,7 +4,7 @@
 
 - **אתר:** https://rinaati-sketch.github.io/subscription-radar-app/
 - **טכנולוגיה:** React, Vite, TypeScript, Tailwind, Supabase, PWA
-- **פרסום:** כל דחיפה ל-main מתפרסמת אוטומטית (GitHub Actions)
+- **פרסום:** `npm run deploy` - בונה ומעלה לענף gh-pages
 
 ## הרצה מקומית
 ```bash
