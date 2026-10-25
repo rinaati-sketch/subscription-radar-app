@@ -61,9 +61,9 @@ export function SubscriptionList({ mode }: { mode: Mode }) {
   const title = mode === 'cancelled' ? t.cancelled.title : t.list.title
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-[length:var(--layout-title-size)] font-black leading-tight">{title}</h1>
-      <Tabs />
+    <div className="card-xl flex flex-col gap-6 p-5 sm:p-9">
+      <h1 className="break-words text-[30px] font-black leading-tight sm:text-[36px]">{title}</h1>
+      <Tabs active={(data ?? []).filter(s => s.status !== 'cancelled').length} cancelled={(data ?? []).filter(s => s.status === 'cancelled').length} loaded={!!data} />
 
       {mode === 'active' && data && <Summary subs={rows} />}
 
@@ -121,15 +121,17 @@ export function SubscriptionList({ mode }: { mode: Mode }) {
   )
 }
 
-function Tabs() {
+// לשוניות בעיצוב Lovable: לחצנים עם מסגרת, הפעילה בליים עם צל, ומספר המנויים בכל אחת
+function Tabs({ active, cancelled, loaded }: { active: number; cancelled: number; loaded: boolean }) {
   const cls = ({ isActive }: { isActive: boolean }) =>
-    `flex min-h-11 flex-1 items-center justify-center rounded-[12px] px-4 text-center font-extrabold transition-colors duration-[var(--motion-duration-fast)] md:flex-none ${
-      isActive ? 'bg-ink text-[var(--color-text-on-dark)]' : 'text-ink hover:bg-highlight'
+    `inline-flex min-h-11 items-center rounded-xl border-[3px] border-ink px-4 font-extrabold transition-[background,box-shadow] duration-[var(--motion-duration-fast)] ${
+      isActive ? 'bg-ring shadow-[var(--shadow-sm)]' : 'bg-surface hover:bg-highlight'
     }`
+  const count = (n: number) => (loaded ? <span className="ms-1">(<bdi dir="ltr">{n}</bdi>)</span> : null)
   return (
-    <nav aria-label={t.list.title} className="flex w-full gap-1 self-start rounded-[16px] border-[length:var(--border-default)] border-ink bg-surface p-1 md:w-auto">
-      <NavLink to="/subscriptions" end className={cls}>{t.list.tabActive}</NavLink>
-      <NavLink to="/subscriptions/cancelled" className={cls}>{t.list.tabCancelled}</NavLink>
+    <nav aria-label={t.list.title} className="flex flex-wrap gap-3">
+      <NavLink to="/subscriptions" end className={cls}>{t.list.tabActive}{count(active)}</NavLink>
+      <NavLink to="/subscriptions/cancelled" className={cls}>{t.list.tabCancelled}{count(cancelled)}</NavLink>
     </nav>
   )
 }
@@ -156,10 +158,10 @@ function Summary({ subs }: { subs: Subscription[] }) {
 function Empty({ mode }: { mode: Mode }) {
   const navigate = useNavigate()
   if (mode === 'cancelled') {
-    return <p className="rounded-[var(--radius-card)] border-[length:var(--border-default)] border-dashed border-ink bg-surface px-6 py-10 text-center font-bold">{t.cancelled.empty}</p>
+    return <p className="rounded-2xl border-[3px] border-dashed border-ink px-6 py-10 text-center text-lg font-medium">{t.cancelled.empty}</p>
   }
   return (
-    <div className="flex flex-col items-center gap-3 rounded-[var(--radius-card)] border-[length:var(--border-default)] border-ink bg-surface px-6 py-12 text-center shadow-[var(--shadow-md)]">
+    <div className="flex flex-col items-center gap-3 px-2 py-8 text-center">
       <img src={`${import.meta.env.BASE_URL}logo-mark.svg`} width={64} height={64} alt="" aria-hidden="true" />
       <h2 className="text-[length:var(--font-size-section)] font-black">{t.list.emptyTitle}</h2>
       <p className="max-w-sm text-muted">{t.list.emptyBody}</p>
@@ -172,7 +174,7 @@ function Skeleton() {
   return (
     <div aria-busy="true" className="flex flex-col gap-3">
       {[0, 1, 2].map(i => (
-        <div key={i} className="flex items-center gap-4 rounded-[var(--radius-card)] border-[length:var(--border-default)] border-subtle bg-surface p-5">
+        <div key={i} className="flex items-center gap-4 rounded-2xl border-[3px] border-subtle p-4">
           <div className="skeleton h-5 w-1/3" />
           <div className="skeleton h-5 w-1/5" />
           <div className="skeleton ms-auto h-8 w-24" />
@@ -216,11 +218,11 @@ function DecideButton({ s }: { s: Subscription }) {
 }
 
 function Table({ rows, mode, onDelete }: { rows: Subscription[]; mode: Mode; onDelete: (s: Subscription) => void }) {
-  const th = 'px-4 py-3 text-start text-[length:var(--font-size-label)] font-extrabold text-muted'
+  const th = 'px-3 py-3 text-start font-extrabold'
   return (
-    <div className="hidden overflow-hidden rounded-[var(--radius-card)] border-[length:var(--border-default)] border-ink bg-surface shadow-[var(--shadow-md)] lg:block">
+    <div className="hidden overflow-x-auto lg:block">
       <table className="w-full border-collapse">
-        <thead className="border-b-[length:var(--border-divider)] border-ink bg-field">
+        <thead className="border-b-[3px] border-ink">
           <tr>
             <th scope="col" className={th}>{t.list.colName}</th>
             <th scope="col" className={th}>{t.list.colCost}</th>
@@ -231,20 +233,20 @@ function Table({ rows, mode, onDelete }: { rows: Subscription[]; mode: Mode; onD
         </thead>
         <tbody>
           {rows.map(s => (
-            <tr key={s.id} className="border-b-[length:var(--border-divider)] border-subtle last:border-b-0">
-              <td className="px-4 py-4">
-                <div className="flex flex-col">
+            <tr key={s.id} className="border-b-2 border-subtle last:border-b-0">
+              <td className="px-3 py-4">
+                <div className="flex flex-col items-start">
                   <bdi className="text-[length:var(--font-size-card)] font-extrabold">{s.name}</bdi>
                   {s.is_trial && <TrialLabel />}
                 </div>
               </td>
-              <td className="px-4 py-4">
+              <td className="px-3 py-4">
                 <div className="flex flex-col">
                   <span className="font-bold">{ltr(fmtMoney(s.cost, s.currency))}</span>
                   <span className="text-[length:var(--font-size-small)] text-muted">{cycleText[s.billing_cycle]}</span>
                 </div>
               </td>
-              <td className="px-4 py-4">
+              <td className="px-3 py-4">
                 {mode === 'cancelled' ? (
                   <span className="font-bold">{s.decided_at ? ltr(fmtDate(s.decided_at)) : '-'}</span>
                 ) : (
@@ -254,8 +256,8 @@ function Table({ rows, mode, onDelete }: { rows: Subscription[]; mode: Mode; onD
                   </div>
                 )}
               </td>
-              <td className="px-4 py-4"><StatusBadge status={s.status} /></td>
-              <td className="px-4 py-4">
+              <td className="px-3 py-4"><StatusBadge status={s.status} /></td>
+              <td className="px-3 py-4">
                 <div className="flex items-center gap-2">
                   {mode === 'active' && <DecideButton s={s} />}
                   <Actions s={s} mode={mode} onDelete={onDelete} />
@@ -271,9 +273,9 @@ function Table({ rows, mode, onDelete }: { rows: Subscription[]; mode: Mode; onD
 
 function Card({ s, mode, onDelete }: { s: Subscription; mode: Mode; onDelete: (s: Subscription) => void }) {
   return (
-    <article className="flex h-full flex-col gap-3 rounded-[var(--radius-card)] border-[length:var(--border-default)] border-ink bg-surface p-5 shadow-[var(--shadow-md)]">
+    <article className="flex h-full flex-col gap-3 rounded-2xl border-[3px] border-ink bg-surface p-4">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col">
+        <div className="flex flex-col items-start">
           <h2 className="text-[length:var(--font-size-card)] font-extrabold leading-snug"><bdi>{s.name}</bdi></h2>
           {s.is_trial && <TrialLabel />}
         </div>

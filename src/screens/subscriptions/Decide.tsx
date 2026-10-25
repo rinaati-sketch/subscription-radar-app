@@ -168,8 +168,8 @@ export function Decide() {
 
 function Frame({ title, children }: { title?: string; children: ReactNode }) {
   return (
-    <section className="mx-auto flex w-full max-w-[640px] flex-col gap-5">
-      {title && <h1 className="text-[length:var(--layout-title-size)] font-black leading-tight">{title}</h1>}
+    <section className="card-xl mx-auto flex w-full max-w-[640px] flex-col gap-6 p-5 sm:p-9">
+      {title && <h1 className="break-words text-[30px] font-black leading-tight sm:text-[36px]">{title}</h1>}
       {children}
     </section>
   )
@@ -184,7 +184,7 @@ function Back({ secondary }: { secondary?: boolean }) {
 
 function Done({ children }: { children: ReactNode }) {
   return (
-    <div role="status" className="flex flex-col items-center gap-4 rounded-[var(--radius-card)] border-[length:var(--border-default)] border-ink bg-surface px-6 py-8 text-center shadow-[var(--shadow-md)]">
+    <div role="status" className="flex flex-col items-center gap-4 rounded-2xl border-[3px] border-ink bg-highlight px-6 py-8 text-center">
       <span className="flex size-20 items-center justify-center rounded-full border-[length:var(--border-default)] border-ink bg-ring animate-[dialog-in_var(--motion-duration-moderate)_var(--motion-easing-spring)]">
         <CircleCheck className="size-10" aria-hidden="true" />
       </span>
@@ -201,7 +201,7 @@ function Details({ sub, date, last }: { sub: Subscription; date: string; last: s
     </div>
   )
   return (
-    <dl className="rounded-[var(--radius-card)] border-[length:var(--border-default)] border-ink bg-surface px-5 py-2 shadow-[var(--shadow-md)]">
+    <dl className="rounded-2xl border-[3px] border-ink bg-field px-4 py-1">
       {row(t.decide.rowName, <span className="inline-flex flex-wrap items-center justify-end gap-2"><bdi>{sub.name}</bdi>{sub.is_trial && <TrialLabel />}</span>)}
       {row(t.decide.rowCost, <bdi dir="ltr">{fmtMoney(sub.cost, sub.currency)}</bdi>)}
       {row(t.decide.rowCycle, cycleText[sub.billing_cycle])}

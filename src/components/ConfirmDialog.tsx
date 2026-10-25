@@ -37,7 +37,7 @@ export function ConfirmDialog({ title, body, actions, onClose }: { title: string
         aria-labelledby={titleId}
         aria-describedby={bodyId}
         onClick={e => e.stopPropagation()}
-        className="flex w-full flex-col gap-4 rounded-t-[var(--radius-card)] border-[length:var(--border-default)] border-b-0 border-ink bg-surface px-5 pt-6 pb-[calc(24px+env(safe-area-inset-bottom))] animate-[sheet-in_var(--motion-duration-moderate)_var(--motion-easing-standard)] md:max-w-[440px] md:rounded-[var(--radius-card)] md:border-b-[length:var(--border-default)] md:p-7 md:shadow-[var(--shadow-lg)] md:animate-[dialog-in_var(--motion-duration-base)_var(--motion-easing-standard)]"
+        className="flex w-full flex-col gap-4 rounded-t-[var(--radius-card)] border-[length:var(--border-default)] border-b-0 border-ink bg-surface px-5 pt-6 pb-[calc(24px+env(safe-area-inset-bottom))] animate-[sheet-in_var(--motion-duration-moderate)_var(--motion-easing-standard)] md:max-w-[440px] md:rounded-[28px] md:border-4 md:p-7 md:shadow-[6px_6px_0_var(--color-shadow-default)] md:animate-[dialog-in_var(--motion-duration-base)_var(--motion-easing-standard)]"
       >
         <h2 id={titleId} className="text-[length:var(--font-size-section)] font-black leading-tight">{title}</h2>
         <p id={bodyId} className="text-muted">{body}</p>

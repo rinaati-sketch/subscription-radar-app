@@ -1,9 +1,19 @@
 // כל הטקסטים באפליקציה, מהאפיון (מתוקן 5) מילה במילה. שינוי ניסוח - רק כאן.
 export const t = {
   appName: 'רדאר מנויים',
+  hero: {
+    line1: 'חידוש לא יגיע',
+    line2: 'בהפתעה.',
+    body: 'מקבלים התראה 14 יום לפני כל חידוש - ומחליטים בזמן אם להשאיר או לבטל.',
+    pill: '14 יום לפני כל חידוש',
+    sampleRenews: 'מתחדש ב-',
+    sampleAlert: 'התראה ב-',
+  },
   common: {
     networkError: 'משהו השתבש - יש לנסות שוב.',
     logout: 'התנתקות',
+    showPassword: 'הצגת סיסמה',
+    hidePassword: 'הסתרת סיסמה',
   },
   validation: {
     emailRequired: 'יש להזין כתובת מייל.',
@@ -64,9 +74,7 @@ export const t = {
   nav: {
     list: 'המנויים שלי',
     cancelled: 'מנויים מבוטלים',
-    cancelledShort: 'מבוטלים',
     add: 'הוספת מנוי',
-    addShort: 'הוספה',
     main: 'ניווט ראשי',
   },
   list: {

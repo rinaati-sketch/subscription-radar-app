@@ -19,7 +19,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
       <div
         role="status"
         aria-live="polite"
-        className="pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4 bottom-[calc(var(--layout-bottom-nav)+env(safe-area-inset-bottom)+16px)] md:bottom-8"
+        className="pointer-events-none fixed inset-x-0 z-50 flex justify-center px-4 bottom-[calc(env(safe-area-inset-bottom)+16px)] md:bottom-8"
       >
         {toast && (
           <p

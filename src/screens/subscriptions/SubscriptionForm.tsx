@@ -101,8 +101,8 @@ function Loaded({ id, mode }: { id: string; mode: Mode }) {
 
 function FormFrame({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mx-auto flex w-full max-w-[560px] flex-col gap-5 md:rounded-[var(--radius-card)] md:border-[length:var(--border-default)] md:border-ink md:bg-surface md:p-9 md:shadow-[var(--shadow-lg)]">
-      <h1 className="text-[length:var(--layout-title-size)] font-black leading-tight">{title}</h1>
+    <section className="card-xl mx-auto flex w-full max-w-2xl flex-col gap-6 p-5 sm:p-9">
+      <h1 className="break-words text-[30px] font-black leading-tight sm:text-[36px]">{title}</h1>
       {children}
     </section>
   )
@@ -163,26 +163,21 @@ function FormBody({ mode, initial, sub }: { mode: Mode; initial: Values; sub?: S
       <form noValidate onSubmit={submitForm} className="flex flex-col gap-5">
         <Field label={t.form.name} autoComplete="off" error={errors.name?.message} {...register('name')} />
 
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-3">
-          <Field label={t.form.cost} inputMode="decimal" ltr error={errors.cost?.message} {...register('cost')} />
-          <Select label={t.form.currency} error={errors.currency?.message} {...register('currency')}>
-            <option value="ILS">₪</option>
-            <option value="USD">$</option>
-          </Select>
-        </div>
+        <Field label={t.form.cost} inputMode="decimal" ltr error={errors.cost?.message} {...register('cost')} />
 
-        <fieldset className="flex flex-col gap-1.5">
-          <legend className="pb-1.5 font-extrabold text-[17px]">{t.form.cycle}</legend>
-          <div className="grid grid-cols-2 gap-1 rounded-[var(--radius-field)] border-[length:var(--border-default)] border-ink bg-field p-1">
-            {(['monthly', 'yearly'] as const).map(c => (
-              <label key={c} className="relative flex min-h-11 cursor-pointer items-center justify-center rounded-[10px] font-extrabold has-[:checked]:bg-ink has-[:checked]:text-[var(--color-text-on-dark)] has-[:focus-visible]:shadow-[0_0_0_4px_var(--color-focus-ring)]">
-                <input type="radio" value={c} className="sr-only" {...register('billing_cycle')} />
-                {c === 'monthly' ? t.form.monthly : t.form.yearly}
-              </label>
-            ))}
-          </div>
-          {errors.billing_cycle && <ErrorMsg>{errors.billing_cycle.message}</ErrorMsg>}
-        </fieldset>
+        <ChoiceGroup legend={t.form.currency} error={errors.currency?.message}>
+          {([['ILS', '₪'], ['USD', '$']] as const).map(([v, label]) => (
+            <Choice key={v} label={label}><input type="radio" value={v} className="sr-only" {...register('currency')} /></Choice>
+          ))}
+        </ChoiceGroup>
+
+        <ChoiceGroup legend={t.form.cycle} error={errors.billing_cycle?.message}>
+          {(['monthly', 'yearly'] as const).map(c => (
+            <Choice key={c} label={c === 'monthly' ? t.form.monthly : t.form.yearly}>
+              <input type="radio" value={c} className="sr-only" {...register('billing_cycle')} />
+            </Choice>
+          ))}
+        </ChoiceGroup>
 
         <Field
           label={t.form.date}
@@ -210,7 +205,7 @@ function FormBody({ mode, initial, sub }: { mode: Mode; initial: Values; sub?: S
           })}
         />
 
-        <label className="flex cursor-pointer items-start gap-3">
+        <label className="flex min-h-11 cursor-pointer items-start gap-3">
           <input type="checkbox" className="mt-1 size-6 shrink-0 cursor-pointer accent-[var(--color-action-primary)]" {...register('is_trial')} />
           <span className="flex flex-col">
             <span className="font-extrabold">{t.form.trial}</span>
@@ -245,20 +240,22 @@ function ErrorMsg({ children }: { children: React.ReactNode }) {
   )
 }
 
-type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & { label: string; error?: string }
-function Select({ label, error, children, ref, ...rest }: SelectProps & { ref?: React.Ref<HTMLSelectElement> }) {
+// בחירה באריחים (כמו ב-Lovable): כל אפשרות היא אריח עם מסגרת, הנבחרת בליים
+function ChoiceGroup({ legend, error, children }: { legend: string; error?: string; children: React.ReactNode }) {
   return (
-    <label className="flex flex-col gap-1.5">
-      <span className="font-extrabold text-[17px]">{label}</span>
-      <select
-        ref={ref}
-        aria-invalid={error ? true : undefined}
-        className="min-h-[52px] min-w-[84px] rounded-[var(--radius-field)] border-[length:var(--border-default)] border-ink bg-field px-3.5 text-[17px] font-bold"
-        {...rest}
-      >
-        {children}
-      </select>
+    <fieldset className="flex flex-col gap-1.5">
+      <legend className="pb-1.5 text-[15px] font-bold">{legend}</legend>
+      <div className="grid grid-cols-2 gap-3">{children}</div>
       {error && <ErrorMsg>{error}</ErrorMsg>}
+    </fieldset>
+  )
+}
+
+function Choice({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <label className="flex min-h-[52px] cursor-pointer items-center justify-center rounded-[16px] border-[3px] border-ink bg-field px-4 text-[17px] font-bold transition-[background,box-shadow] duration-[var(--motion-duration-fast)] has-[:checked]:bg-ring has-[:focus-visible]:shadow-[0_0_0_5px_var(--color-focus-ring)]">
+      {children}
+      {label}
     </label>
   )
 }
