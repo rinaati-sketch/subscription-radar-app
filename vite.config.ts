@@ -36,7 +36,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: false, // נרשם ב-src/lib/pwa.ts, עם בדיקת עדכון בכל פתיחה
-      includeAssets: ['favicon.ico', 'favicon.svg', 'apple-touch-icon-180x180.png', 'logo-mark.svg'],
+      includeAssets: ['favicon.ico', 'favicon.svg', 'apple-touch-icon-180x180.png', 'logo-mark.svg', 'logo.svg'],
       manifest: {
         name: 'רדאר מנויים',
         short_name: 'רדאר',
